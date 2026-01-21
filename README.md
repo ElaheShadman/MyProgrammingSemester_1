@@ -1,11 +1,11 @@
 # MyProgrammingSemester_1
 # First Semester Programming – Dual Study Informatik
 
-Welcome to my programming coursework repository for the first semester of my dual study program in Informatik. This space documents my weekly tasks, coding exercises, and learning progress as I build foundational skills in Java and software development.
+Welcome to my programming coursework repository for the first semester of my dual study program in Informatik. This space documents my weekly tasks, coding exercises, and learning progress as I build foundational skills in Java, Python and software development.
 
 ## 📚 What You'll Find
 
-- Week-by-week folders with Java projects and exercises
+- Week-by-week folders with Java, Python projects and exercises
 - Topics include: introduction to Java, loops, conditions, and practical applications
 - Clean code structure and meaningful commit history for each task
 
