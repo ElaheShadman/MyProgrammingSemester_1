@@ -8,3 +8,11 @@ class AnnalynsInfiltration {
 public static boolean canSignalPrisoner(boolean archerIsAwake, boolean prisonerIsAwake) {
         return !archerIsAwake && prisonerIsAwake;
     }
+   public static boolean canFreePrisoner(boolean knightIsAwake, boolean archerIsAwake, boolean prisonerIsAwake, boolean petDogIsPresent) {
+       if (petDogIsPresent) {
+           return !archerIsAwake;
+       } else {
+           return prisonerIsAwake && !knightIsAwake && !archerIsAwake;
+       }
+    }
+}
