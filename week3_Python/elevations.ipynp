@@ -8,3 +8,7 @@ elevations = np.array([120, 340, 560, 230, 410])
 mean = np.mean(elevations)
 std = np.std(elevations)
 normalized = (elevations - mean) / std
+
+# Step 3: Check results
+normalized_mean = np.mean(normalized)
+normalized_std = np.std(normalized)
