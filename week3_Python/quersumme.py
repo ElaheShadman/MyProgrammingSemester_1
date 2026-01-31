@@ -5,3 +5,14 @@ def quersumme(n):
         total += n % 10
         n = n // 10
     return total
+
+# Step by step:
+
+n	  n % 10	total
+4352    2	      2
+435	    5	      7
+43	    3	     10
+4	    4	     14
+0	    -	     14
+
+Returns: 14
