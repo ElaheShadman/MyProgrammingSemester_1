@@ -2,3 +2,9 @@
 def vorkommen(n):
     n = n.lower()
     d = {}
+    for c in n:
+        if c in d:
+            d[c] += 1
+        else:
+            d[c] = 1
+    return d
