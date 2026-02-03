@@ -69,3 +69,22 @@ corr = df_clean[["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_m
 sns.heatmap(corr, annot=True, cmap="coolwarm")
 plt.title("Feature Correlations")
 plt.show()
+
+
+
+
+# Insight 1 — Gentoo penguins are the largest
+# They have the longest flippers
+
+# They have the highest body mass
+# Implication: Gentoo are physically bigger and stronger swimmers.
+
+# Insight 2 — Adelie penguins have the shortest bills
+# Histogram shows Adelie bill length is much lower
+# Implication: Bill length is a strong feature for species identification.
+
+# Insight 3 — Species live on different islands
+# Countplot shows Gentoo mostly live on Biscoe
+
+# Chinstrap mostly on Dream
+# Implication: Habitat preference differs by species.
