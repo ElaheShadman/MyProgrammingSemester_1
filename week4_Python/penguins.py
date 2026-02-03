@@ -1,10 +1,16 @@
+import os
+print(os.getcwd())
+
+
+
 import pandas as pd
 import numpy as np 
 import seaborn as sns 
 import matplotlib.pyplot as plt
 
 
-df = pd.read_csv('penguins.csv')
+df = pd.read_csv("C:/Users/Elahe/Desktop/MyProgrammingSemester_1/MyProgrammingSemester_1/week4_Python/penguins.csv")
+
 print(df.head())
 
 
@@ -53,4 +59,13 @@ ax[1,1].set_title("Species by Island")
 plt.xticks(rotation=45)
 
 plt.tight_layout()
+plt.show()
+
+
+
+
+corr = df_clean[["bill_length_mm", "bill_depth_mm", "flipper_length_mm", "body_mass_g"]].corr()
+
+sns.heatmap(corr, annot=True, cmap="coolwarm")
+plt.title("Feature Correlations")
 plt.show()
