@@ -1,6 +1,14 @@
 import pandas as pd
+import numpy as np 
+import seaborn as sns 
+import matplotlib.pyplot as plt
+
+
 df = pd.read_csv('penguins.csv')
 print(df.head())
+
+
+
 
 print("Shape:", df.shape)          # number of rows & columns
 print("\nInfo:")
@@ -11,6 +19,8 @@ print("\nSummary statistics:")
 print(df.describe())               # numeric summary
 
 
+
+
 # Drop rows missing important numeric values
 df_clean = df.dropna(subset=["bill_length_mm", "flipper_length_mm"])
 
@@ -19,3 +29,28 @@ df_clean["sex"] = df_clean["sex"].fillna("Unknown")
 
 # Check again
 print(df_clean.isnull().sum())
+
+
+
+
+fig, ax = plt.subplots(2, 2, figsize=(12, 10))
+
+# A) Histogram
+sns.histplot(data=df_clean, x="bill_length_mm", hue="species", kde=True, ax=ax[0,0])
+ax[0,0].set_title("Bill Length by Species")
+
+# B) Boxplot
+sns.boxplot(data=df_clean, x="species", y="flipper_length_mm", ax=ax[0,1])
+ax[0,1].set_title("Flipper Length by Species")
+
+# C) Scatterplot
+sns.scatterplot(data=df_clean, x="bill_length_mm", y="body_mass_g", hue="species", ax=ax[1,0])
+ax[1,0].set_title("Bill Length vs Body Mass")
+
+# D) Countplot
+sns.countplot(data=df_clean, x="island", hue="species", ax=ax[1,1])
+ax[1,1].set_title("Species by Island")
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.show()
