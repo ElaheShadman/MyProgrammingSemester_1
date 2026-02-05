@@ -1,13 +1,14 @@
-import java.time.LocalDate; 
-import java.util.ArrayList; 
-import java.util.List; 
+package week5_Java;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MyProgram {
+public class FinancialTransactionTrackerStream {
 
     public static void main(String[] args) {
 
-        List<String[]> records = new ArrayList<>();
+        ArrayList<String[]> records = new ArrayList<>();
         Scanner input = new Scanner(System.in);
 
         while (true) {
@@ -22,8 +23,7 @@ public class MyProgram {
             int option = input.nextInt();
             input.nextLine(); // clear newline
 
-
-             switch (option) {
+            switch (option) {
 
                 case 1:
                     System.out.print("Type (Sale / Purchase): ");
@@ -42,8 +42,8 @@ public class MyProgram {
 
                     System.out.println("Saved successfully.");
                     break;
-                
-                 case 2:
+
+                case 2:
                     LocalDate prevDay = LocalDate.now().minusDays(1);
 
                     long yesterdayCount = records.stream()
@@ -53,7 +53,7 @@ public class MyProgram {
                     System.out.println("Number of transactions yesterday: " + yesterdayCount);
                     break;
 
-                 case 3:
+                case 3:
                     double income = records.stream()
                             .filter(r -> r[0].equalsIgnoreCase("Sale"))
                             .mapToDouble(r -> Double.parseDouble(r[1]))
@@ -68,7 +68,7 @@ public class MyProgram {
                     System.out.println("Expense Total: " + expenses);
                     break;
 
-                 case 4:
+                case 4:
                     System.out.println("Closing program...");
                     input.close();
                     return;
