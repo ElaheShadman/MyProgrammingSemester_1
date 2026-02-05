@@ -67,3 +67,15 @@ public class MyProgram {
                     System.out.println("Income Total: " + income);
                     System.out.println("Expense Total: " + expenses);
                     break;
+
+                 case 4:
+                    System.out.println("Closing program...");
+                    input.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid selection.");
+            }
+        }
+    }
+}
