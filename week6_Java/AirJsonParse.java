@@ -122,7 +122,7 @@ public class AirJsonParse {
         for (int i = 0; i < days.length; i++) {
             JSONObject dayDate = listArray.getJSONObject(i);
 
-            double pm25 = dayDate.getJASONObject("components").getDouble("pm2_5");
+            double pm25 = dayDate.getJSONObject("components").getDouble("pm2_5");
 
             pm25Values[i] = pm25;
             }
