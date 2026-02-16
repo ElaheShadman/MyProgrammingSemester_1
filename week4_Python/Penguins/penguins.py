@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+from traitlets import This
 
 # 1. LOAD DATA + BASIC EDA
 
@@ -134,3 +135,115 @@ sns.pairplot(
     ]
 )
 plt.show()
+
+
+
+#Hypothesis 1: The "Swimming Efficiency" Correlation
+#Question: Does a larger body mass always require significantly longer flippers across all species, or do some species have a more "efficient" ratio?
+
+#Hypothesis: There is a strong positive linear correlation between body_mass_g and flipper_length_mm, but the slope of this relationship differs by species.
+
+#How to Prove/Disprove: * Use sns.lmplot(data=df, x='body_mass_g', y='flipper_length_mm', hue='species').
+
+#Insight: If the lines are parallel, the relationship is universal. If one species (like Gentoos) has a steeper line, they gain more flipper length per gram of mass than others.
+
+#Hypothesis 2: Bill Shape Specialization (Niche Partitioning)
+#Question: Do species living on the same island evolve different bill shapes to avoid competing for the same food?
+
+#Hypothesis: On islands where multiple species coexist (e.g., Dream or Biscoe), the distribution of bill_length_mm vs. bill_depth_mm will show zero overlap, indicating specialized feeding habits.
+
+#How to Prove/Disprove: * Filter the dataframe for a specific island: dream_island = df[df['island'] == 'Dream'].
+
+#Create a scatter plot: sns.scatterplot(data=dream_island, x='bill_length_mm', y='bill_depth_mm', hue='species').
+
+#Insight: Overlap suggests competition; distinct clusters suggest "niche partitioning" (eating different sizes of krill/fish).
+
+#Hypothesis 3: The "Gentoo Gigantism" Theory
+#Question: Are Gentoo penguins significantly larger than all other species regardless of their sex?
+
+#Hypothesis: The smallest male Gentoo penguin is still larger in body_mass_g than the largest individuals of the Adelie and Chinstrap species.
+
+#How to Prove/Disprove: * Use a violin plot or a boxplot with a swarm overlay: sns.boxplot(data=df, x='species', y='body_mass_g').
+
+#Check the "max" of Adelie/Chinstrap vs. the "min" of Gentoo.
+
+#Insight: This helps stakeholders understand if "Species" is a stronger predictor of weight than "Sex."
+
+
+sns.lmplot(
+    data=df,
+    x='body_mass_g',
+    y='flipper_length_mm',
+    hue='species',
+    height=6,
+    aspect=1.2,
+    markers=["o", "s", "D"]
+)
+
+plt.title("Body Mass vs Flipper Length by Species")
+plt.show()
+
+
+
+
+# Filter for a specific island (Dream, Biscoe, or Torgersen)
+dream_island = df[df['island'] == 'Dream']
+
+sns.scatterplot(
+    data=dream_island,
+    x='bill_length_mm',
+    y='bill_depth_mm',
+    hue='species',
+    s=80
+)
+
+plt.title("Bill Length vs Bill Depth on Dream Island")
+plt.show()
+
+
+
+
+
+#if you want to tes each iland you can loop:
+
+
+
+for island in df['island'].unique():
+    island_data = df[df['island'] == island]
+    sns.scatterplot(
+        data=island_data,
+        x='bill_length_mm',
+        y='bill_depth_mm',
+        hue='species',
+        s=80
+    )
+    plt.title(f"Bill Length vs Bill Depth on {island} Island")
+    plt.show()
+
+
+
+
+
+    sns.boxplot(
+    data=df,
+    x='species',
+    y='body_mass_g'
+)
+
+sns.swarmplot(
+    data=df,
+    x='species',
+    y='body_mass_g',
+    color='black',
+    size=3
+)
+
+plt.title("Body Mass Distribution by Species")
+plt.show()
+
+
+df.groupby('species')['body_mass_g'].agg(['min', 'max'])
+
+
+
+
