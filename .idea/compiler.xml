@@ -9,5 +9,8 @@
         <module name="jfreechart" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Project_Java" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
