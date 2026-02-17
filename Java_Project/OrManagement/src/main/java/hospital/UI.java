@@ -6,6 +6,7 @@ import org.jfree.chart.JFreeChart;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UI extends JFrame {
 
@@ -14,17 +15,17 @@ public class UI extends JFrame {
 
     public UI(List<Surgery> logs) {
         this.logs = logs;
+
         setTitle("Hospital OR Analytics Dashboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 700);
+        setSize(1100, 750);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
         setJMenuBar(createMenuBar());
         add(createRibbon(), BorderLayout.NORTH);
 
-        JFreeChart initialChart = ChartGenerator.createOrUsageByDept(logs);
-        chartPanel = new ChartPanel(initialChart);
+        chartPanel = new ChartPanel(ChartGenerator.createOrUsageByDept(logs));
         add(chartPanel, BorderLayout.CENTER);
     }
 
@@ -40,7 +41,7 @@ public class UI extends JFrame {
         JMenuItem about = new JMenuItem("About");
         about.addActionListener(e ->
                 JOptionPane.showMessageDialog(this,
-                        "OR Analytics Dashboard\nElahe Shadman",
+                        "OR Analytics Dashboard\nCreated by Elahe Shadman",
                         "About",
                         JOptionPane.INFORMATION_MESSAGE));
         help.add(about);
@@ -63,6 +64,7 @@ public class UI extends JFrame {
         // Chart Tools
         JPanel chartTools = new JPanel();
         chartTools.setBorder(BorderFactory.createTitledBorder("Chart Tools"));
+
         JButton btnBar = new JButton("OR by Dept");
         JButton btnLine = new JButton("Daily Volume");
         JButton btnScatter = new JButton("Duration vs Recovery");
@@ -81,11 +83,21 @@ public class UI extends JFrame {
         chartTools.add(btnPie);
         chartTools.add(btnHeat);
 
-        // Filter / Advanced (placeholder for now)
+        // Filters / Advanced
         JPanel filterPanel = new JPanel();
         filterPanel.setBorder(BorderFactory.createTitledBorder("Advanced / Filters"));
-        JLabel lbl = new JLabel("Future: filters, surgeons, ORs");
-        filterPanel.add(lbl);
+
+        JButton btnFilterDept = new JButton("Filter by Dept");
+        JButton btnFilterSurgeon = new JButton("Filter by Surgeon");
+        JButton btnFilterDuration = new JButton("Filter by Duration");
+
+        btnFilterDept.addActionListener(e -> filterByDepartment());
+        btnFilterSurgeon.addActionListener(e -> filterBySurgeon());
+        btnFilterDuration.addActionListener(e -> filterByDurationRange());
+
+        filterPanel.add(btnFilterDept);
+        filterPanel.add(btnFilterSurgeon);
+        filterPanel.add(btnFilterDuration);
 
         ribbon.add(summaryPanel);
         ribbon.add(chartTools);
@@ -96,6 +108,8 @@ public class UI extends JFrame {
 
     private void updateChart(JFreeChart chart) {
         chartPanel.setChart(chart);
+        chartPanel.revalidate();
+        chartPanel.repaint();
     }
 
     private void showSummaryDialog() {
@@ -110,16 +124,61 @@ public class UI extends JFrame {
         sb.append("Total OR hours: ").append(totalMins / 60.0).append("\n");
         sb.append("Average duration: ").append(String.format("%.2f", avgDur)).append(" mins\n");
         sb.append("Average recovery: ").append(String.format("%.2f", avgRec)).append(" days\n");
-        if (longest != null) {
-            sb.append("Longest: ").append(longest.procedureName)
-                    .append(" (").append(longest.duration).append(" mins)\n");
-        }
-        if (shortest != null) {
-            sb.append("Shortest: ").append(shortest.procedureName)
-                    .append(" (").append(shortest.duration).append(" mins)\n");
-        }
+
+        if (longest != null)
+            sb.append("Longest: ").append(longest.procedureName).append(" (").append(longest.duration).append(" mins)\n");
+
+        if (shortest != null)
+            sb.append("Shortest: ").append(shortest.procedureName).append(" (").append(shortest.duration).append(" mins)\n");
 
         JOptionPane.showMessageDialog(this, sb.toString(),
                 "Summary Metrics", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    // -------------------------
+    // FILTER FUNCTIONS
+    // -------------------------
+
+    private void filterByDepartment() {
+        String dept = JOptionPane.showInputDialog(this, "Enter department name:");
+        if (dept == null || dept.isBlank()) return;
+
+        List<Surgery> filtered = logs.stream()
+                .filter(s -> s.department.equalsIgnoreCase(dept))
+                .collect(Collectors.toList());
+
+        updateChart(ChartGenerator.createOrUsageByDept(filtered));
+    }
+
+    private void filterBySurgeon() {
+        String surgeon = JOptionPane.showInputDialog(this, "Enter Surgeon ID (e.g., S01):");
+        if (surgeon == null || surgeon.isBlank()) return;
+
+        List<Surgery> filtered = logs.stream()
+                .filter(s -> s.surgeonId.equalsIgnoreCase(surgeon))
+                .collect(Collectors.toList());
+
+        updateChart(ChartGenerator.createDurationVsRecoveryScatter(filtered));
+    }
+
+    private void filterByDurationRange() {
+        String minStr = JOptionPane.showInputDialog(this, "Min duration (mins):");
+        String maxStr = JOptionPane.showInputDialog(this, "Max duration (mins):");
+
+        if (minStr == null || maxStr == null) return;
+
+        try {
+            int min = Integer.parseInt(minStr);
+            int max = Integer.parseInt(maxStr);
+
+            List<Surgery> filtered = logs.stream()
+                    .filter(s -> s.duration >= min && s.duration <= max)
+                    .collect(Collectors.toList());
+
+            updateChart(ChartGenerator.createDurationVsRecoveryScatter(filtered));
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid number format.");
+        }
     }
 }
