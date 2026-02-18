@@ -102,3 +102,64 @@ public class MyProgram {
         System.out.println("----------------------------------");
     }
 }
+
+
+/*
+    Recursive Fibonacci
+    -------------------
+    Time Complexity: O(2^n)
+    Space Complexity: O(n)
+    Notes:
+    - Extremely slow for large n because it recomputes the same values many times.
+    - Builds a huge recursion tree.
+
+    Iterative Fibonacci
+    -------------------
+    Time Complexity: O(n)
+    Space Complexity: O(1)
+    Notes:
+    - Very fast and memory efficient.
+    - Uses only a few variables and no recursion.
+
+    Memoized Fibonacci
+    ------------------
+    Time Complexity: O(n)
+    Space Complexity: O(n)
+    Notes:
+    - Fast because it stores previously computed results in a HashMap.
+    - Uses extra memory to save values but avoids repeated work.
+*/
+
+
+/*
+    How the time measurement works
+    ------------------------------
+    We measure execution time using System.nanoTime():
+
+        long start = System.nanoTime();
+        // run the algorithm
+        long end = System.nanoTime();
+        System.out.println(end - start);
+
+    This returns the duration in nanoseconds, which is the most precise
+    timing method available in Java.
+
+
+    How the memory measurement works
+    --------------------------------
+    We measure memory usage using the Runtime class:
+
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc(); // ask the JVM to clean up
+        long used = runtime.totalMemory() - runtime.freeMemory();
+
+    To measure memory before and after running an algorithm:
+
+        long memBefore = usedMemory();
+        long memAfter = usedMemory();
+        System.out.println(memAfter - memBefore);
+
+    This gives an approximate number of bytes used by the algorithm.
+    Memory values are approximate because the JVM manages memory dynamically.
+*/
+
