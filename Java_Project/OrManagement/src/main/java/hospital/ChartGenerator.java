@@ -83,13 +83,13 @@ public class ChartGenerator {
         );
     }
 
-    public static JFreeChart createProcedureDistributionPie(List<Surgery> logs) {
-        DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
+    public static JFreeChart createProcedureDistributionPie(List<hospital.Surgery> logs) {
+        DefaultPieDataset dataset = new DefaultPieDataset();
 
         if (!hasEnough(logs)) {
             dataset.setValue("No Data", 1);
         } else {
-            Map<String, Long> counts = Analytics.countByProcedure(logs);
+            Map<String, Long> counts = OrManagement.src.main.java.hospital.Analytics.countByProcedure(logs);
             counts.forEach(dataset::setValue);
         }
 
@@ -102,7 +102,7 @@ public class ChartGenerator {
         );
     }
 
-    public static JFreeChart createOrOccupancyHeatmap(List<Surgery> logs) {
+    public static JFreeChart createOrOccupancyHeatmap(List<OrManagement.src.main.java.hospital.Surgery> logs) {
         DefaultXYZDataset dataset = new DefaultXYZDataset();
 
         if (!hasEnough(logs)) {
