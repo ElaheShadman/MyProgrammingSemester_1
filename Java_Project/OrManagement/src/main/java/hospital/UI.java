@@ -25,7 +25,7 @@ public class UI extends JFrame {
         setJMenuBar(createMenuBar());
         add(createRibbon(), BorderLayout.NORTH);
 
-        chartPanel = new ChartPanel(ChartGenerator.createOrUsageByDept(logs));
+        chartPanel = new ChartPanel(hospital.ChartGenerator.createOrUsageByDept(logs));
         add(chartPanel, BorderLayout.CENTER);
     }
 
