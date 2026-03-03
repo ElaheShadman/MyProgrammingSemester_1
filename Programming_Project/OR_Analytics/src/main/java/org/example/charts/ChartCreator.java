@@ -3,10 +3,14 @@ package org.example.charts;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Map;
+import java.util.Random;
 
 public class ChartCreator {
 
@@ -35,6 +39,14 @@ public class ChartCreator {
                 "Minutes",
                 dataset
         );
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        Random r = new Random();
+        Color randomColor = new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256));
+        renderer.setSeriesPaint(0, randomColor);
+
         return new ChartPanel(chart);
     }
 
@@ -49,6 +61,14 @@ public class ChartCreator {
                 "Count",
                 dataset
         );
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        Random r = new Random();
+        Color randomColor = new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256));
+        renderer.setSeriesPaint(0, randomColor);
+
         return new ChartPanel(chart);
     }
 
@@ -63,6 +83,14 @@ public class ChartCreator {
                 "Avg Recovery (min)",
                 dataset
         );
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        Random r = new Random();
+        Color randomColor = new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256));
+        renderer.setSeriesPaint(0, randomColor);
+
         return new ChartPanel(chart);
     }
 
@@ -78,6 +106,14 @@ public class ChartCreator {
                 "Count",
                 dataset
         );
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        Random r = new Random();
+        Color randomColor = new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256));
+        renderer.setSeriesPaint(0, randomColor);
+
         return new ChartPanel(chart);
     }
 
@@ -93,6 +129,14 @@ public class ChartCreator {
                 "Surgeries",
                 dataset
         );
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        Random r = new Random();
+        Color randomColor = new Color(r.nextInt(256), r.nextInt(256), r.nextInt(256));
+        renderer.setSeriesPaint(0, randomColor);
+
         return new ChartPanel(chart);
     }
 
