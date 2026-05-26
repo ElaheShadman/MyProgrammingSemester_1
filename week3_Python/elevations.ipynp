@@ -18,3 +18,7 @@ df = pd.DataFrame({
     "Elevation": elevations,
     "Normalized": normalized
 })
+
+print(df)
+print(f"\nMean of normalized: {normalized_mean:.2f}")
+print(f"Std of normalized: {normalized_std:.2f}")
