@@ -3,9 +3,9 @@ sepublic class main {
     String trafficLights = "red";
     if(trafficlights == "red") {
       System.out.println("Stop")
-    } else if (trafficLights == "green") {
+    }else if (trafficLights == "green") {
       System.out.println("go")
-    } else {
+    }else {
       System.out.println("go carefully")
     }
   }
