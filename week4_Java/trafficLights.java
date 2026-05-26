@@ -2,7 +2,9 @@ public class main {
   public static void main (String[] args) {
     String trafficLights = "red";
     if(trafficlights == "red") {
-      print.out.println("Stop")
+      System.out.println("Stop")
+    } else if (trafficLights == "green") {
+      System.out.println("go")
     }
   }
 }
