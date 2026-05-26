@@ -1,0 +1,24 @@
+import numpy as np
+import pandas as pd
+
+# Step 1: Create elevation array
+elevations = np.array([120, 340, 560, 230, 410])
+
+# Step 2: Normalize
+mean = np.mean(elevations)
+std = np.std(elevations)
+normalized = (elevations - mean) / std
+
+# Step 3: Check results
+normalized_mean = np.mean(normalized)
+normalized_std = np.std(normalized)
+
+# Step 4: Put it in a DataFrame
+df = pd.DataFrame({
+    "Elevation": elevations,
+    "Normalized": normalized
+})
+
+print(df)
+print(f"\nMean of normalized: {normalized_mean:.2f}")
+print(f"Std of normalized: {normalized_std:.2f}")
