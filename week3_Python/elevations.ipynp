@@ -12,3 +12,9 @@ normalized = (elevations - mean) / std
 # Step 3: Check results
 normalized_mean = np.mean(normalized)
 normalized_std = np.std(normalized)
+
+# Step 4: Put it in a DataFrame
+df = pd.DataFrame({
+    "Elevation": elevations,
+    "Normalized": normalized
+})
