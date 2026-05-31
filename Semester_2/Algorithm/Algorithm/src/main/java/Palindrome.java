@@ -20,6 +20,7 @@ public class Palindrome {
             left++;
             right--;
         }
-        System.out.println("Is palindrome: " + palindrome);
+        if(palindrome){System.out.println("Is palindrome: " + palindrome);}
+        else{System.out.println("Is not palindrome: " + palindrome);}
     }
 }
